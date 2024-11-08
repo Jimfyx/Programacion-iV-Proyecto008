@@ -1,5 +1,6 @@
 from flask import Flask
 from sqlalchemy import text, create_engine
+from threading import Thread
 
 from services import sms_reciver
 from config import Config, db
@@ -22,6 +23,8 @@ def crear_database(uri):
     except Exception as e:
         print(f'Error al crear la base de datos: {e}')
 
+def start_sms_receiver():
+    sms_reciver.main()
 
 with app.app_context():
 
@@ -40,4 +43,8 @@ with app.app_context():
 
 
 if __name__ == '__main__':
+
+    receiver_thread = Thread(target=start_sms_receiver, daemon=True)
+    receiver_thread.start()
+
     app.run(debug=True, host='0.0.0.0')

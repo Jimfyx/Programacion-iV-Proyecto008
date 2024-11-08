@@ -8,16 +8,17 @@ def on_message_received(ch, method, properties, body):
         data_record.data_record(message)
     print(f"received new message: {message}")
 
-channel = get_pika_connection()
+def main():
+    channel = get_pika_connection()
 
-if channel:
-    channel.queue_declare(queue='cola', durable=True)
-    channel.basic_consume(queue='cola', auto_ack=True, on_message_callback=on_message_received)
-    print("Starting Consuming")
+    if channel:
+        channel.queue_declare(queue='cola', durable=True)
+        channel.basic_consume(queue='cola', auto_ack=True, on_message_callback=on_message_received)
+        print("Starting Consuming")
 
-    try:
-        channel.start_consuming()
-    finally:
-        channel.connection.close()
-else:
-    print("No se pudo establecer la conexión con RabbitMQ")
+        try:
+            channel.start_consuming()
+        finally:
+            channel.connection.close()
+    else:
+        print("No se pudo establecer la conexión con RabbitMQ")

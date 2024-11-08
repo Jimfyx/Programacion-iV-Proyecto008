@@ -9,7 +9,7 @@ COPY . /app/
 
 #instalar requerimientos
 RUN pip install flask
-RUN pip install Flask_sqlalchemy
+RUN pip install flask_sqlalchemy
 RUN pip install mysql-connector-python
 RUN pip install pika
 

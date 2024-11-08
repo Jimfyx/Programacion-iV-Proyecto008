@@ -5,8 +5,8 @@ class Requerimiento(db.Model):
 
     id_req = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nombre = db.Column(db.String(100), nullable=False, unique=True)
-    telefono = db.Column(db.Integer, nullable=False)
-    requerimiento = db.Column(db.String(50), nullable=False)
+    telefono = db.Column(db.String(15), nullable=False)
+    requerimiento = db.Column(db.String(255), nullable=False)
     enviado_por = db.Column(db.String(50), nullable=False, default='admin')
 
     def to_dict(self):
